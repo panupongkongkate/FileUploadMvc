@@ -1,0 +1,60 @@
+﻿@model IEnumerable<FileUploadMvc.Models.ImageModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+
+    <a onclick="showInPopup('@Url.Action("Create","ImageModels")','Image')"
+       class="btn btn-success text-white">Add</a>
+
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="@("~/Images/" + item.ImageName)" asp-append-version="true" width="250" height="250" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ImageID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ImageID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ImageID">Delete</a>
+            </td>
+
+            <td>
+                <a onclick="showInPopup('@Url.Action("Edit","ImageModels",new {id = item.ImageID})','Edit Image')" class="btn btn-info text-white">Edit </a>
+                |
+                <a onclick="showInPopup('@Url.Action("Details","ImageModels",new {id = item.ImageID})','Image')" class="btn btn-info text-white">Details </a>
+                |
+                <a onclick="showInPopup('@Url.Action("Delete","ImageModels",new {id = item.ImageID})','Image')" class="btn btn-info text-white">Delete </a>
+            </td>
+
+        </tr>
+}
+    </tbody>
+</table>
